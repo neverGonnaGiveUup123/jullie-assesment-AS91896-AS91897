@@ -1,6 +1,7 @@
 import ttkbootstrap as ttkb
 from ttkbootstrap.constants import *
 from title import Heading
+from entries import Entries
 
 class julieGui(ttkb.Window):
     def __init__(self, title="ttkbootstrap", themename="litera", iconphoto='', size=None, position=None, minsize=None, maxsize=None, resizable=None, hdpi=True, scaling=None, transient=None, overrideredirect=False, alpha=1):
@@ -11,7 +12,9 @@ class julieGui(ttkb.Window):
         self.heading = Heading(self)
         self.heading.pack(padx=10,pady=20)
 
-        
+        self.entries = Entries(self)
+        self.entries.pack()
+
 
 if __name__ == '__main__':
     app = julieGui()
