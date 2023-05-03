@@ -15,7 +15,6 @@ class julieGui(ttkb.Window):
         self.entries = Entries(self)
         self.entries.pack()
 
-
 if __name__ == '__main__':
     app = julieGui()
     app.mainloop()
