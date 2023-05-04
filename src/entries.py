@@ -55,6 +55,17 @@ class Entries(ttkb.Frame):
             if int(item_amount) > 500:
                 self.error_message.config(text="Item mount cannot be greater than 500!")
                 return 0
+            
+            with open('src/stored_data.json', 'r') as file:
+                customer_data = json.load(file)
+                customer_data['Customer Name'].append(customer_name)
+                customer_data['Receipt'].append(receipt)
+                customer_data['Item hired'].append(item)
+                customer_data['Item hired amount'].append(item_amount)
+            
+            with open('src/stored_data.json', 'w') as file:
+                json.dump(customer_data, file)
+            
 
         self.enter_button = ttkb.Button(
             self, text="Enter", bootstyle=INFO, width=20, command=send_info
