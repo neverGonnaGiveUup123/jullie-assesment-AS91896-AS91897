@@ -56,12 +56,14 @@ class Entries(ttkb.Frame):
                 self.error_message.config(text="Item mount cannot be greater than 500!")
                 return 0
             
+            self.error_message.config(text='No current errors.')
+            
             with open('src/stored_data.json', 'r') as file:
                 customer_data = json.load(file)
-                customer_data['Customer Name'].append(customer_name)
+                customer_data['Customer name'].append(customer_name)
                 customer_data['Receipt'].append(receipt)
                 customer_data['Item hired'].append(item)
-                customer_data['Item hired amount'].append(item_amount)
+                customer_data['Hired item amount'].append(item_amount)
             
             with open('src/stored_data.json', 'w') as file:
                 json.dump(customer_data, file)
