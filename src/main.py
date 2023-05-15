@@ -8,9 +8,6 @@ class julieGui(ttkb.Window):
     def __init__(self, title="ttkbootstrap", themename="litera", iconphoto='', size=None, position=None, minsize=None, maxsize=None, resizable=None, hdpi=True, scaling=None, transient=None, overrideredirect=False, alpha=1):
         super().__init__(title, themename, iconphoto, size, position, minsize, maxsize, resizable, hdpi, scaling, transient, overrideredirect, alpha)
 
-        with open('src/stored_data.json', 'w') as file:
-            json.dump({"Customer name": [], "Receipt": [], "Item hired": [], "Hired item amount": []},file)
-
         self.title('AS91896 & AS91897')
 
         self.entries = Entries(self)

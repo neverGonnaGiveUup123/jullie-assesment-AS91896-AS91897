@@ -33,9 +33,12 @@ class SelectData(ttkb.Frame):
             with open('src/stored_data.json', 'r') as file:
                 json_file = json.load(file)
 
-            for i in json_file['Customer name']:
-                if i == self.display_checkbox.get():
-                    target_index = json_file['Customer name'].index(i)
+            try:
+                for i in json_file['Customer name']:
+                    if i == self.display_checkbox.get():
+                        target_index = json_file['Customer name'].index(i)
+            except UnboundLocalError:
+                return 0
             
             for keys in json_file.keys():
                 for items in json_file[keys]:
@@ -47,18 +50,25 @@ class SelectData(ttkb.Frame):
             self.receipt.config(text="Receipt: " + json_file['Receipt'][target_index])
             self.item_hired.config(text="Item hired: " + json_file['Item hired'][target_index])
             self.hired_item_amount.config(text="Hired item amount: " + json_file['Hired item amount'][target_index])
+        
+        def delete_all_func():
+                with open('src/stored_data.json', 'w') as file:
+                    json.dump({"Customer name": [], "Receipt": [], "Item hired": [], "Hired item amount": []},file)
 
         self.display_checkbox = ttkb.Combobox(self,postcommand=select_data_func)
         self.display_checkbox.config(values=tuple(self.customer_names_list))
         self.display_checkbox.grid(row=0,column=0,columnspan=2)
-        
-        self.update_button = ttkb.Button(self,text="Refresh data", command=refresh_func, bootstyle=INFO)
-        self.update_button.grid(row=1,column=0,columnspan=2,pady=10)
 
-        self.delete_button = ttkb.Button(self,command=delete_button_func,bootstyle=DANGER, text="Delete selected data")
+        self.del_all_button = ttkb.Button(self,text="Delete all",bootstyle=DANGER,width=20,command=delete_all_func)
+        self.del_all_button.grid(row=1,column=0,padx=10,pady=10)
+        
+        self.update_button = ttkb.Button(self,text="Refresh data", command=refresh_func, bootstyle=INFO,width=20)
+        self.update_button.grid(row=1,column=1,pady=10,padx=10)
+
+        self.delete_button = ttkb.Button(self,command=delete_button_func,bootstyle=WARNING, text="Delete selected data",width=20)
         self.delete_button.grid(row=3,column=0,padx=10,pady=10)
 
-        self.display_button = ttkb.Button(self,command=display_button_func,bootstyle=SUCCESS, text="Display selected data")
+        self.display_button = ttkb.Button(self,command=display_button_func,bootstyle=SUCCESS, text="Display selected data",width=20)
         self.display_button.grid(row=3,column=1,padx=10,pady=10)
 
         self.customer_name = ttkb.Label(self,text="Customer name:")
