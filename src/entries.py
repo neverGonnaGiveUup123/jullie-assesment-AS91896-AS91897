@@ -57,7 +57,7 @@ class Entries(ttkb.Frame):
                 self.error_message.config(text="Item amount must be greater than 0!")
                 return 0
             if int(item_amount) > 500:
-                self.error_message.config(text="Item mount cannot be greater than 500!")
+                self.error_message.config(text="Item amount cannot be greater than 500!")
                 return 0
             
             self.error_message.config(text='No current errors.')

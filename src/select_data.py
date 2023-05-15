@@ -54,13 +54,17 @@ class SelectData(ttkb.Frame):
         self.display_button.grid(row=3,column=1,padx=10,pady=10)
 
         self.customer_name = ttkb.Label(self,text="Customer name:")
+        self.customer_name.config(font=('Helvetica', 14))
         self.customer_name.grid(row=4,column=0,columnspan=2,padx=10,pady=10)
 
         self.receipt = ttkb.Label(self,text='Receipt:')
+        self.receipt.config(font=('Helvetica', 14))
         self.receipt.grid(row=5,column=0,columnspan=2,padx=10,pady=10)
 
         self.item_hired = ttkb.Label(self,text='Hired item:')
+        self.item_hired.config(font=('Helvetica', 14))
         self.item_hired.grid(row=6,column=0,columnspan=2,padx=10,pady=10)
 
         self.hired_item_amount = ttkb.Label(self,text="Hired item amount:")
+        self.hired_item_amount.config(font=('Helvetica', 14))
         self.hired_item_amount.grid(row=7,column=0,columnspan=2,padx=10,pady=10)
