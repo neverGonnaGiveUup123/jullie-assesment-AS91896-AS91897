@@ -14,11 +14,11 @@ class julieGui(ttkb.Window):
 
         self.title('AS91896 & AS91897')
 
-        self.heading = Heading(self)
-        self.heading.grid(row=0,column=0,padx=20,pady=10)
+        # self.heading = Heading(self)
+        # self.heading.grid(row=0,column=0,padx=20,pady=10)
 
         self.entries = Entries(self)
-        self.entries.grid(row=1,column=0,padx=20,pady=10)
+        self.entries.grid(row=0,column=0,padx=20,pady=10)
 
         self.select_data = SelectData(self)
         self.select_data.grid(row=0,column=1,padx=10,pady=10)
