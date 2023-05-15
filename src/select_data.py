@@ -43,8 +43,8 @@ class SelectData(ttkb.Frame):
             for keys in json_file.keys():
                 for items in json_file[keys]:
                     print(items)
-                    if len(items) >= 10:
-                        json_file[keys][json_file[keys].index(items)] = items[0:5] + '...'
+                    if len(items) > 18:
+                        json_file[keys][json_file[keys].index(items)] = items[0:16] + '...'
             
             self.customer_name.config(text="Customer name: " + json_file['Customer name'][target_index])
             self.receipt.config(text="Receipt: " + json_file['Receipt'][target_index])
@@ -56,7 +56,7 @@ class SelectData(ttkb.Frame):
                     json.dump({"Customer name": [], "Receipt": [], "Item hired": [], "Hired item amount": []},file)
 
         self.display_checkbox = ttkb.Combobox(self,postcommand=select_data_func)
-        self.display_checkbox.config(values=tuple(self.customer_names_list))
+        self.display_checkbox.config(values=tuple(self.customer_names_list),state='readonly')
         self.display_checkbox.grid(row=0,column=0,columnspan=2)
 
         self.del_all_button = ttkb.Button(self,text="Delete all",bootstyle=DANGER,width=20,command=delete_all_func)
