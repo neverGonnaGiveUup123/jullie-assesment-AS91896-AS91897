@@ -44,6 +44,13 @@ class Entries(ttkb.Frame):
             if len(customer_name.strip()) == 0:
                 self.error_message.config(text="Customer name is required!")
                 return 0
+            
+            with open("src/stored_data.json", 'r') as file:
+                for i in json.load(file)['Customer name']:
+                    if customer_name == i:
+                        self.error_message.config(text="There is already an entry with this name. Delete it first!")
+                        return 0
+
             if receipt.isdigit() == False:
                 self.error_message.config(text="The receipt must be a number!")
                 return 0
@@ -64,10 +71,10 @@ class Entries(ttkb.Frame):
             
             with open('src/stored_data.json', 'r') as file:
                 customer_data = json.load(file)
-                customer_data['Customer name'].append(customer_name)
-                customer_data['Receipt'].append(receipt)
-                customer_data['Item hired'].append(item)
-                customer_data['Hired item amount'].append(item_amount)
+                customer_data['Customer name'].append(customer_name.strip())
+                customer_data['Receipt'].append(receipt.strip())
+                customer_data['Item hired'].append(item.strip())
+                customer_data['Hired item amount'].append(item_amount.strip())
             
             with open('src/stored_data.json', 'w') as file:
                 json.dump(customer_data, file)
