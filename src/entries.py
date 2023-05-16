@@ -7,9 +7,9 @@ class Entries(ttkb.Frame):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        self.title = ttkb.Label(self,text="Julie's customer info recorder")
-        self.title.config(font=('Helvetica', 18))
-        self.title.grid(row=0,column=0,columnspan=2,padx=20,pady=20)
+        self.title = ttkb.Label(self, text="Julie's customer info recorder")
+        self.title.config(font=("Helvetica", 18))
+        self.title.grid(row=0, column=0, columnspan=2, padx=20, pady=20)
 
         self.customer_name_label = ttkb.Label(self, text="Customer name: ")
         self.customer_name_label.grid(row=1, column=0, padx=10, pady=10)
@@ -44,16 +44,27 @@ class Entries(ttkb.Frame):
             if len(customer_name.strip()) == 0:
                 self.error_message.config(text="Customer name is required!")
                 return 0
-            
-            with open("src/stored_data.json", 'r') as file:
-                for i in json.load(file)['Customer name']:
-                    if customer_name == i:
-                        self.error_message.config(text="There is already an entry with this name. Delete it first!")
+
+            with open("src/stored_data.json", "r") as file:
+                for i in json.load(file)["Customer name"]:
+                    if customer_name.strip() == i:
+                        self.error_message.config(
+                            text="There is already an entry with this name. Delete it first!"
+                        )
                         return 0
 
             if receipt.isdigit() == False:
                 self.error_message.config(text="The receipt must be a number!")
                 return 0
+
+            with open("src/stored_data.json", "r") as file:
+                for i in json.load(file)["Receipt"]:
+                    if receipt.strip() == i:
+                        self.error_message.config(
+                            text="There is already a receipt with this number!"
+                        )
+                        return 0
+
             if len(item.strip()) == 0:
                 self.error_message.config(text="Hired item is required!")
                 return 0
@@ -64,21 +75,22 @@ class Entries(ttkb.Frame):
                 self.error_message.config(text="Item amount must be greater than 0!")
                 return 0
             if int(item_amount) > 500:
-                self.error_message.config(text="Item amount cannot be greater than 500!")
+                self.error_message.config(
+                    text="Item amount cannot be greater than 500!"
+                )
                 return 0
-            
-            self.error_message.config(text='No current errors.')
-            
-            with open('src/stored_data.json', 'r') as file:
+
+            self.error_message.config(text="No current errors.")
+
+            with open("src/stored_data.json", "r") as file:
                 customer_data = json.load(file)
-                customer_data['Customer name'].append(customer_name.strip())
-                customer_data['Receipt'].append(receipt.strip())
-                customer_data['Item hired'].append(item.strip())
-                customer_data['Hired item amount'].append(item_amount.strip())
-            
-            with open('src/stored_data.json', 'w') as file:
+                customer_data["Customer name"].append(customer_name.strip())
+                customer_data["Receipt"].append(receipt.strip())
+                customer_data["Item hired"].append(item.strip())
+                customer_data["Hired item amount"].append(item_amount.strip())
+
+            with open("src/stored_data.json", "w") as file:
                 json.dump(customer_data, file)
-            
 
         self.enter_button = ttkb.Button(
             self, text="Enter", bootstyle=INFO, width=20, command=send_info
