@@ -9,12 +9,9 @@ class SelectData(ttkb.Frame):
 
         self.customer_names_list = []
 
-        def refresh_func():
+        def select_data_func():
             with open("src/stored_data.json", "r") as file:
                 self.customer_names_list = json.load(file)["Customer name"]
-            self.display_checkbox.config(values=self.customer_names_list)
-
-        def select_data_func():
             self.display_checkbox.config(values=self.customer_names_list)
 
         def delete_button_func():
@@ -75,17 +72,7 @@ class SelectData(ttkb.Frame):
         self.display_checkbox.config(
             values=tuple(self.customer_names_list), state="readonly"
         )
-        self.display_checkbox.grid(row=0, column=0, columnspan=2)
-
-        self.del_all_button = ttkb.Button(
-            self, text="Delete all", bootstyle=DANGER, width=20, command=delete_all_func
-        )
-        self.del_all_button.grid(row=1, column=0, padx=10, pady=10)
-
-        self.update_button = ttkb.Button(
-            self, text="Refresh data", command=refresh_func, bootstyle=INFO, width=20
-        )
-        self.update_button.grid(row=1, column=1, pady=10, padx=10)
+        self.display_checkbox.grid(row=0, column=0, columnspan=2,padx=75,pady=10)
 
         self.delete_button = ttkb.Button(
             self,
@@ -94,7 +81,7 @@ class SelectData(ttkb.Frame):
             text="Delete selected data",
             width=20,
         )
-        self.delete_button.grid(row=3, column=0, padx=10, pady=10)
+        self.delete_button.grid(row=1, column=0, padx=10, pady=10,columnspan=2)
 
         self.display_button = ttkb.Button(
             self,
@@ -103,20 +90,25 @@ class SelectData(ttkb.Frame):
             text="Display selected data",
             width=20,
         )
-        self.display_button.grid(row=3, column=1, padx=10, pady=10)
+        self.display_button.grid(row=2, column=0, padx=10, pady=10,columnspan=2)
 
         self.customer_name = ttkb.Label(self, text="Customer name:")
         self.customer_name.config(font=("Helvetica", 11))
-        self.customer_name.grid(row=4, column=0, columnspan=2, padx=10, pady=10)
+        self.customer_name.grid(row=3, column=0, columnspan=2, padx=10, pady=10)
 
         self.receipt = ttkb.Label(self, text="Receipt:")
         self.receipt.config(font=("Helvetica", 11))
-        self.receipt.grid(row=5, column=0, columnspan=2, padx=10, pady=10)
+        self.receipt.grid(row=4, column=0, columnspan=2, padx=10, pady=10)
 
         self.item_hired = ttkb.Label(self, text="Hired item:")
         self.item_hired.config(font=("Helvetica", 11))
-        self.item_hired.grid(row=6, column=0, columnspan=2, padx=10, pady=10)
+        self.item_hired.grid(row=5, column=0, columnspan=2, padx=10, pady=10)
 
         self.hired_item_amount = ttkb.Label(self, text="Hired item amount:")
         self.hired_item_amount.config(font=("Helvetica", 11))
-        self.hired_item_amount.grid(row=7, column=0, columnspan=2, padx=10, pady=10)
+        self.hired_item_amount.grid(row=6, column=0, columnspan=2, padx=10, pady=10)
+
+        self.del_all_button = ttkb.Button(
+            self, text="Delete all", bootstyle=DANGER, width=20, command=delete_all_func
+        )
+        self.del_all_button.grid(row=7, column=0, padx=10, pady=10,columnspan=2)
