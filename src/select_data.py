@@ -25,17 +25,22 @@ class SelectData(ttkb.Frame):
                     data[keys].pop(index)
             with open("src/stored_data.json", "w") as file:
                 json.dump(data, file)
+            self.display_checkbox.set("")
+            self.customer_name.config(text="Customer name:")
+            self.receipt.config(text="Receipt:")
+            self.item_hired.config(text="Hired item:")
+            self.hired_item_amount.config(text="Hired item amount:")
 
         def display_button_func():
             with open("src/stored_data.json", "r") as file:
                 json_file = json.load(file)
 
-            try:
-                for i in json_file["Customer name"]:
-                    if i == self.display_checkbox.get():
-                        target_index = json_file["Customer name"].index(i)
-            except UnboundLocalError:
+            if self.display_checkbox.get() == "":
                 return 0
+
+            for i in json_file["Customer name"]:
+                if i == self.display_checkbox.get():
+                    target_index = json_file["Customer name"].index(i)
 
             for keys in json_file.keys():
                 for items in json_file[keys]:
@@ -67,6 +72,11 @@ class SelectData(ttkb.Frame):
                     },
                     file,
                 )
+            self.display_checkbox.set("")
+            self.customer_name.config(text="Customer name:")
+            self.receipt.config(text="Receipt:")
+            self.item_hired.config(text="Hired item:")
+            self.hired_item_amount.config(text="Hired item amount:")
 
         self.display_checkbox = ttkb.Combobox(self, postcommand=select_data_func)
         self.display_checkbox.config(
