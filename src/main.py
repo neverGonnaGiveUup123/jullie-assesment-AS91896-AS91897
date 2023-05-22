@@ -1,11 +1,10 @@
 import ttkbootstrap as ttkb
-import json
 from ttkbootstrap.constants import *
 from entries import Entries
 from select_data import SelectData
 
-
-class julieGui(ttkb.Window):
+# import all the frames and create the main window
+class JulieGui(ttkb.Window):
     def __init__(
         self,
         title="ttkbootstrap",
@@ -38,6 +37,7 @@ class julieGui(ttkb.Window):
             alpha,
         )
 
+        # Add the frames to main
         self.title("AS91896 & AS91897")
 
         self.entries = Entries(self)
@@ -46,7 +46,7 @@ class julieGui(ttkb.Window):
         self.select_data = SelectData(self)
         self.select_data.grid(row=0, column=1, padx=10, pady=10)
 
-
+# Only execute the code if the file is being run directly and not as an import
 if __name__ == "__main__":
-    app = julieGui()
+    app = JulieGui()
     app.mainloop()

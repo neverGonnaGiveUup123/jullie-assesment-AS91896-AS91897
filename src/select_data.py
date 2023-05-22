@@ -2,18 +2,20 @@ import ttkbootstrap as ttkb
 from ttkbootstrap.constants import *
 import json
 
-
+# create a frame for the part that displays the data
 class SelectData(ttkb.Frame):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
         self.customer_names_list = []
 
-        def select_data_func():
+        # Open the json file and add all the data to customer_names_list. Then show the items in the dropdown box.
+        def dropdown_get_data():
             with open("src/stored_data.json", "r") as file:
                 self.customer_names_list = json.load(file)["Customer name"]
             self.display_checkbox.config(values=self.customer_names_list)
 
+        # If there is a selected item, then find the item in the json file and delete only that one. Then refresh the display.
         def delete_button_func():
             if self.display_checkbox.get() == "":
                 return 0
@@ -31,12 +33,14 @@ class SelectData(ttkb.Frame):
             self.item_hired.config(text="Hired item:")
             self.hired_item_amount.config(text="Hired item amount:")
 
+        # If there is a selected name, then open the json file, find that name, and display the data under that name.
+        # If some entries are too long, then show ... at the end.
         def display_button_func():
-            with open("src/stored_data.json", "r") as file:
-                json_file = json.load(file)
-
             if self.display_checkbox.get() == "":
                 return 0
+            
+            with open("src/stored_data.json", "r") as file:
+                json_file = json.load(file)
 
             for i in json_file["Customer name"]:
                 if i == self.display_checkbox.get():
@@ -61,6 +65,7 @@ class SelectData(ttkb.Frame):
                 + json_file["Hired item amount"][target_index]
             )
 
+        # Open the json file and reset everything, then refresh the display
         def delete_all_func():
             with open("src/stored_data.json", "w") as file:
                 json.dump(
@@ -78,7 +83,8 @@ class SelectData(ttkb.Frame):
             self.item_hired.config(text="Hired item:")
             self.hired_item_amount.config(text="Hired item amount:")
 
-        self.display_checkbox = ttkb.Combobox(self, postcommand=select_data_func)
+        # Add all the buttons, labels and dropdown boxes.
+        self.display_checkbox = ttkb.Combobox(self, postcommand=dropdown_get_data)
         self.display_checkbox.config(
             values=tuple(self.customer_names_list), state="readonly"
         )
