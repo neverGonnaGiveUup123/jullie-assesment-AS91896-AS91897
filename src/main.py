@@ -2,6 +2,7 @@ import ttkbootstrap as ttkb
 from ttkbootstrap.constants import *
 from entries import Entries
 from select_data import SelectData
+import json
 
 # import all the frames and create the main window
 class JulieGui(ttkb.Window):
@@ -45,6 +46,9 @@ class JulieGui(ttkb.Window):
 
         self.select_data = SelectData(self)
         self.select_data.grid(row=0, column=1, padx=10, pady=10)
+
+        with open('src/stored_data.json', 'w') as file:
+            json.dump({"Customer name" : [], "Receipt" : [], "Item hired" : [], "Hired item amount" : []},file)
 
 # Only execute the code if the file is being run directly and not as an import
 if __name__ == "__main__":
