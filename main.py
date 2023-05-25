@@ -47,6 +47,7 @@ class JulieGui(ttkb.Window):
         self.select_data = SelectData(self)
         self.select_data.grid(row=0, column=1, padx=10, pady=10)
 
+        # If the file exists, then skip. If the file doesn't exist, then create one
         try:
             with open('src/stored_data.json', 'x') as file:
                 json.dump({"Customer name" : [], "Receipt" : [], "Item hired" : [], "Hired item amount" : []},file)
